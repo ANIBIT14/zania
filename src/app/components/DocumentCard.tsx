@@ -39,9 +39,12 @@ export default function DocumentCard({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover rounded"
           onLoad={() => setIsLoading(false)}
+          priority
         />
       </div>
-      <h3 className="mt-2 text-sm text-gray-500 font-semibold">{document?.title}</h3>
+      <h3 className="mt-2 text-sm text-gray-500 font-semibold">
+        {document?.title}
+      </h3>
     </div>
   );
 }
