@@ -7,7 +7,6 @@ First, install the dependencies using but ensure that you are using node version
 ```bash 
 npm install --legacy-peer-deps
 
-
 Then, run the development server:
 
 ```bash
