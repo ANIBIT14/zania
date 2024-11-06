@@ -41,7 +41,7 @@ export default function DocumentCard({
           onLoad={() => setIsLoading(false)}
         />
       </div>
-      <h3 className="mt-2 text-lg font-semibold">{document?.title}</h3>
+      <h3 className="mt-2 text-sm text-gray-500 font-semibold">{document?.title}</h3>
     </div>
   );
 }
