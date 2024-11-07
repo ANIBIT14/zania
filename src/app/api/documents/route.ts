@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { Document } from "@/types";
+import documentsData from "@/data/documents.json";
 
 const databasePath = path.join(process.cwd(), "data", "documents.json");
 
@@ -9,13 +10,7 @@ async function initializeDatabase() {
   try {
     await fs.access(databasePath);
   } catch {
-    const initialData = [
-      { type: "bank-draft", title: "Bank Draft", position: 0 },
-      { type: "bill-of-lading", title: "Bill of Lading", position: 1 },
-      { type: "invoice", title: "Invoice", position: 2 },
-      { type: "bank-draft-2", title: "Bank Draft 2", position: 3 },
-      { type: "bill-of-lading-2", title: "Bill of Lading 2", position: 4 },
-    ];
+    const initialData = documentsData?.documents;
 
     await fs.mkdir(path.dirname(databasePath), { recursive: true });
     await fs.writeFile(databasePath, JSON.stringify(initialData, null, 2));
