@@ -1,39 +1,18 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 import { Document } from "@/types";
-import documentsData from "@/data/documents.json";
-
-const databasePath = path.join(process.cwd(), "data", "documents.json");
-
-async function initializeDatabase() {
-  try {
-    await fs.access(databasePath);
-  } catch {
-    const initialData = documentsData?.documents;
-
-    await fs.mkdir(path.dirname(databasePath), { recursive: true });
-    await fs.writeFile(databasePath, JSON.stringify(initialData, null, 2));
-  }
-}
-
-async function readDatabase(): Promise<Document[]> {
-  await initializeDatabase();
-  const data = await fs.readFile(databasePath, "utf8");
-  return JSON.parse(data);
-}
-
-async function writeDatabase(data: Document[]) {
-  await fs.writeFile(databasePath, JSON.stringify(data, null, 2));
-}
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import { getDocuments, updateDocuments } from "@/lib/db";
 
 export async function GET() {
   try {
-    await delay(500);
-    const documents = await readDatabase();
-    return NextResponse.json(documents);
+    const documents = await getDocuments();
+    const formattedDocuments: Document[] = documents.map((doc) => ({
+      type: doc.type,
+      title: doc.title,
+      position: doc.position,
+      created_at: doc.created_at,
+      updated_at: doc.updated_at,
+    }));
+    return NextResponse.json(formattedDocuments);
   } catch (error) {
     console.error("GET Error:", error);
     return NextResponse.json(
@@ -45,8 +24,7 @@ export async function GET() {
 
 export async function PUT(request: Request) {
   try {
-    await delay(500);
-    const documents = await request.json();
+    const documents: Document[] = await request.json();
 
     if (!Array.isArray(documents)) {
       return NextResponse.json(
@@ -55,7 +33,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    await writeDatabase(documents);
+    await updateDocuments(documents);
     return NextResponse.json(documents);
   } catch (error) {
     console.error("PUT Error:", error);
@@ -68,8 +46,7 @@ export async function PUT(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    await delay(500);
-    const newDoc = await request.json();
+    const newDoc: Document = await request.json();
 
     if (!newDoc.type || !newDoc.title) {
       return NextResponse.json(
@@ -78,11 +55,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const currentDocs = await readDatabase();
-    newDoc.position = currentDocs.length;
-    currentDocs.push(newDoc);
+    const currentDocs = await getDocuments();
+    const formattedDocs: Document[] = currentDocs.map((doc) => ({
+      type: doc.type,
+      title: doc.title,
+      position: doc.position,
+      created_at: doc.created_at,
+      updated_at: doc.updated_at,
+    }));
+    newDoc.position = formattedDocs.length;
+    formattedDocs.push(newDoc);
 
-    await writeDatabase(currentDocs);
+    await updateDocuments(formattedDocs);
     return NextResponse.json(newDoc, { status: 201 });
   } catch (error) {
     console.error("POST Error:", error);
