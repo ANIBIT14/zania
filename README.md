@@ -29,11 +29,6 @@ The frontend of this project is structured to ensure a clean separation of conce
 
 * **ImageOverlay**: This component displays a full-size image of the document when a document card is clicked. It also handles closing the overlay when the escape key is pressed or the close button is clicked.
 
-
-### Hooks
-
-* **useDocuments**: This custom hook manages the state of the documents, including loading, updating, and saving documents. It also handles error states and provides utility functions for adding and updating documents.
-
 ### Types
 
 
@@ -52,17 +47,16 @@ By organizing the frontend in this manner, we ensure that each component has a c
 ## Architectural and API Design Approach
 
 ### Architectural Design
-The architectural design of the mock server is centered around simplicity and maintainability. The server is designed to handle basic CRUD operations for document management, leveraging the App Router API routes in a Next.js application. The data is stored in the local storage to ensure persistence across page reloads, providing a better user experience.
-
+The architectural design of the mock server is centered around simplicity and maintainability. The server is designed to handle basic CRUD operations for document management, leveraging the App Router API routes in a Next.js application. The data is stored in a JSON file on the server to ensure persistence across page reloads, providing a better user experience.
 ### API Design
 The API design follows RESTful principles, with endpoints for fetching, updating, and adding documents. Each endpoint is designed to handle specific operations, ensuring a clear separation of concerns.  
 
-1. GET /api/documents: Fetches the list of documents from the local storage.
-2. PUT /api/documents: Updates the list of documents in the local storage.
-3. POST /api/documents: Adds a new document to the local storage.
+1. GET /api/documents: Fetches the list of documents from the JSON file.
+2. PUT /api/documents: Updates the list of documents in the JSON file.
+3. POST /api/documents: Adds a new document to the JSON file.
 
 ### Implementation Details
-* **Data Storage**: The data is stored in the local storage using the localStorage API. This ensures that the data persists across page reloads and browser sessions.
+* **Data Storage**: The data is stored in a JSON file on the server. This ensures that the data persists across page reloads and server restarts.
 
 * **API Routes**: The API routes are implemented using the App Router in Next.js. Each route handles a specific HTTP method and performs the corresponding operation on the data.
 

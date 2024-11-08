@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { Document } from "@/types";
-import documentsData from "@/data/documents.json";
+import documentsData from "../../../../public/data/documents.json";
 
 const databasePath = path.join(process.cwd(), "data", "documents.json");
 

@@ -8,7 +8,7 @@ type DocumentCardProps = {
     title: string;
     position: number;
   };
-  onImageClick: () => void;
+  onImageClick: (type: string) => void;
 };
 
 export default function DocumentCard({
@@ -16,6 +16,11 @@ export default function DocumentCard({
   onImageClick,
 }: DocumentCardProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onImageClick(document.type);
+  };
 
   const getThumbnailUrl = (type: string) => {
     return thumbnailsOnType[type];
@@ -24,7 +29,7 @@ export default function DocumentCard({
   return (
     <div
       className="bg-white rounded-lg shadow-md p-4 cursor-pointer"
-      onClick={onImageClick}
+      onClick={handleCardClick}
     >
       <div className="relative aspect-video">
         {isLoading && (

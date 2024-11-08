@@ -3,8 +3,3 @@ export interface Document {
     title: string;
     position: number;
 }
-
-export type ApiResponse<T> = {
-    data?: T;
-    error?: string;
-};

@@ -10,11 +10,6 @@
     "position": 1
   },
   {
-    "type": "invoice",
-    "title": "Invoice",
-    "position": 2
-  },
-  {
     "type": "bank-draft-2",
     "title": "Bank Draft 2",
     "position": 3
@@ -23,5 +18,10 @@
     "type": "bill-of-lading-2",
     "title": "Bill of Lading 2",
     "position": 4
+  },
+  {
+    "type": "invoice",
+    "title": "Invoice",
+    "position": 2
   }
 ]

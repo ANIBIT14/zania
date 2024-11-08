@@ -5,24 +5,23 @@ import { imagesOnType } from "@/app/constants/images";
 
 type ImageOverlayProps = {
   imageType: string;
-  onClose: () => void;
+  onCloseAction: () => void;
 };
 
 export default function ImageOverlay({
   imageType,
-  onClose,
+  onCloseAction,
 }: ImageOverlayProps) {
-
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        onCloseAction();
       }
     };
 
     window.addEventListener("keydown", handleEscKey);
     return () => window.removeEventListener("keydown", handleEscKey);
-  }, [onClose]);
+  }, [onCloseAction]);
 
   const getFullImageUrl = (type: string) => {
     return imagesOnType[type];
@@ -32,7 +31,7 @@ export default function ImageOverlay({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="relative max-w-4xl max-h-[90vh] w-full mx-4">
         <button
-          onClick={onClose}
+          onClick={onCloseAction}
           className="absolute -top-10 right-0 text-white font-bold text-xl"
         >
           ✕
