@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { Document } from "@/types";
 import { getDocuments, updateDocuments } from "@/lib/db";
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function GET() {
   try {
     const documents = await getDocuments();
