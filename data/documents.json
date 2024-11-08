@@ -5,14 +5,14 @@
     "position": 0
   },
   {
-    "type": "bill-of-lading",
-    "title": "Bill of Lading",
-    "position": 1
-  },
-  {
     "type": "invoice",
     "title": "Invoice",
     "position": 2
+  },
+  {
+    "type": "bill-of-lading",
+    "title": "Bill of Lading",
+    "position": 1
   },
   {
     "type": "bill-of-lading-2",
